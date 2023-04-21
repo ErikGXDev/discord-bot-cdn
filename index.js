@@ -82,6 +82,11 @@ app.post("/upload", async (req, res) => {
     });
     const url = m.attachments.first().url;
 
+    if (process.env.RETURN_ORIGINAL_URL == false) {
+      res.send(url);
+      return;
+    }
+
     const segs = url.split("/");
     console.log(segs);
     const a = compressNumber(segs[4]);
