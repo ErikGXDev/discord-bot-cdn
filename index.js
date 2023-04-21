@@ -71,12 +71,13 @@ app.post("/upload", async (req, res) => {
   const channelID = process.env.DISCORD_CHANNEL_ID;
   const channel = client.channels.cache.get(channelID);
   if (channel && file) {
+    let ext = file.name.split(".").pop() || "nofile";
     const m = await channel.send({
       content: `${file.name}`,
       files: [
         {
           attachment: file.data,
-          name: `${file.name}`,
+          name: `f.${ext}`,
           description: "File!",
         },
       ],
@@ -95,7 +96,7 @@ app.post("/upload", async (req, res) => {
     const c = segs[6];
 
     res.send(
-      req.protocol + "://" + req.get("host") + "/" + a + "/" + b + "/" + c
+      req.protocol + "://" + req.get("host") + "/" + a + "/" + b + "/" + ext
     );
   } else {
     res.status(400).send("Bad Request");
@@ -104,7 +105,7 @@ app.post("/upload", async (req, res) => {
 
 app.get("/:a/:b/:c", (req, res) => {
   const { a, b, c } = req.params;
-  const path = `${decompressNumber(a)}/${decompressNumber(b)}/${c}`;
+  const path = `${decompressNumber(a)}/${decompressNumber(b)}/f.${c}`;
   console.log(path);
   const url = "https://cdn.discordapp.com/attachments/" + path;
   console.log(url);
