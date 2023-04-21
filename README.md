@@ -1,6 +1,6 @@
 # Discord Bot CDN
 
-Discord Bot CDN is a Node.js program that allows you to store files up to 25mb using Discord's CDN and a Discord bot. It works by having a web server that allows file uploads, which then get uploaded by a bot to the Discord CDN. The CDN links get shortened using a base26 encoding (all letters from a to z).
+Discord Bot CDN is a Node.js program that allows you to store files (25mb limit per file) using Discord's CDN and a Discord bot. It works by having a web server that allows file uploads, which then get uploaded by a bot to the Discord CDN. The CDN links get shortened using a base26 encoding (all letters from a to z).
 
 ## Installation
 
