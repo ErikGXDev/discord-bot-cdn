@@ -60,8 +60,9 @@ app.use(
 app.post("/upload", async (req, res) => {
   const auth = req.headers.authorization || req.body.password;
 
+  res.set("Content-Type", "text/plain");
+
   if (!auth || auth !== password) {
-    res.set("Content-Type", "text/plain");
     res.status(401).send("Authentication required || Incorrect password");
     return;
   }
