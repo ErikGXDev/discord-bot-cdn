@@ -2,35 +2,8 @@ require("dotenv").config(); // Load environment variables from .env file
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const Discord = require("discord.js");
-
+const { compressNumber, decompressNumber } = require("./compress");
 const { Client, GatewayIntentBits } = require("discord.js");
-
-function compressNumber(num) {
-  num = BigInt(num);
-  const base = 26n;
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let compressed = "";
-
-  while (num > 0n) {
-    const remainder = num % BigInt(base);
-    compressed = letters[Number(remainder)] + compressed;
-    num = num / base;
-  }
-
-  return compressed;
-}
-
-function decompressNumber(compressed) {
-  const base = 26n;
-  let num = 0n;
-
-  for (let i = 0; i < compressed.length; i++) {
-    const digitValue = BigInt(compressed.charCodeAt(i) - "A".charCodeAt(0));
-    num = num * base + digitValue;
-  }
-
-  return num;
-}
 
 const client = new Client({
   intents: [
