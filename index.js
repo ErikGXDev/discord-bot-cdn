@@ -72,7 +72,9 @@ app.post("/upload", async (req, res) => {
       req.protocol + "://" + req.get("host") + "/" + a + "/" + b + "/" + ext
     );
   } catch (e) {
-    res.status(400).send(e.toString());
+    res
+      .status(400)
+      .send(e.toString() + "\nDiag:\n" + process.env.DISCORD_CHANNEL_ID);
   }
 });
 
