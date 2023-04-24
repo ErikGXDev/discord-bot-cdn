@@ -4,6 +4,7 @@ const fileUpload = require("express-fileupload");
 const Discord = require("discord.js");
 const { compressNumber, decompressNumber } = require("./compress");
 const { Client, GatewayIntentBits } = require("discord.js");
+var cors = require("cors");
 
 const client = new Client({
   intents: [
@@ -15,6 +16,8 @@ const client = new Client({
 });
 
 const app = express();
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
