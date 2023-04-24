@@ -44,6 +44,9 @@ app.post("/upload", async (req, res) => {
     const file = req.files.file;
     const channelID = process.env.DISCORD_CHANNEL_ID;
     const channel = await client.channels.fetch(channelID);
+    if (!channel) {
+      res.send(400).send("Channel not found");
+    }
     let ext = file.name.split(".").pop() || "nofile";
     const m = await channel.send({
       content: `${file.name}`,
