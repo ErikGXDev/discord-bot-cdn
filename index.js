@@ -43,7 +43,7 @@ app.post("/upload", async (req, res) => {
   try {
     const file = req.files.file;
     const channelID = process.env.DISCORD_CHANNEL_ID;
-    const channel = client.channels.cache.get(channelID);
+    const channel = await client.channels.fetch(channelID);
     let ext = file.name.split(".").pop() || "nofile";
     const m = await channel.send({
       content: `${file.name}`,
@@ -72,9 +72,7 @@ app.post("/upload", async (req, res) => {
       req.protocol + "://" + req.get("host") + "/" + a + "/" + b + "/" + ext
     );
   } catch (e) {
-    res
-      .status(400)
-      .send(e.toString() + "\nDiag:\n" + process.env.DISCORD_CHANNEL_ID);
+    res.status(400).send(e.toString());
   }
 });
 
